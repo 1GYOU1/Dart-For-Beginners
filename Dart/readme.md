@@ -94,6 +94,8 @@ void main(){
 
 - 코드가 알아서 명시적 타입을 추론해주기도 함.
 
+- 가능한 선에서 var 사용 권장. class에서는 명시적 타입 사용.
+
 
 ### 1. var 사용 - 방법 ①
 
@@ -310,6 +312,197 @@ void main() {
 
 ### #1.6 Constant Variables
 
-```dart
+### const 
 
+- dart의 const는 javascript, typescript에서 사용하는 const와는 다르다.
+- compile-time constant - compile-time에 알고 있는 값. (변하지 않는 상수)
+    - 컴파일, 앱스토어에 보내기 전에 알고 있어야하는 값.
+    - ex) Api에서 받아와야하는 값, 사용자가 입력해야하는 값 등.. 사용 X - final, var 사용
+- const를 사용하는 이유
+    - 메모리 효율성을 높이기 위해
+    - 런타임 오버헤드를 줄이기 위해
+```dart
+void main() {
+    const max_allowed_price = 120; // 앱에 사용할 상수(컴파일 시점에 바뀌지 않는 값)
+}
+```
+
+### late와 const는 함께 사용할 수 없다.
+
+- late와 const가 상반된 목적을 가지고 있다.
+- const 키워드는 컴파일 타임 상수를 선언하는 데 사용된다. const 변수는 반드시 선언과 동시에 초기화되어야 하며, 그 값은 컴파일 타임에 결정되어야 한다. (즉시 초기화 필요)
+- late 키워드는 변수를 나중에 초기화할 수 있게 한다. 즉, 선언 시점에서는 초기화하지 않고 나중에 사용할 때 초기화 된다.
+- late final은 함께 사용 가능.
+
+```dart
+void main() {
+    late const 변수; // 이런 선언문은 사용 불가능
+}
+```
+
+<br>
+<br>
+
+### #1.7 Recap
+
+#### 변수를 만드는 2가지 방법
+
+- 타입 + 변수명 = 데이터;
+- var + 변수명 = 데이터;
+
+```dart
+void main(){
+    int i = 12; // 1. 타입 + 변수명 = 데이터;
+    var name = 'la'; // 2. var + 변수명 = 데이터;
+
+    i = 1212121212; // 타입이 맞는 선에서 무한 업데이트 가능
+    name = 'lalalalalala'; // 타입이 맞는 선에서 무한 업데이트 가능
+}
+```
+
+1. `var` 변수명 = 변수값
+    - 처음 할당한 변수값과 같은 타입으로만 업데이트 가능
+    - 컴파일러가 변수의 타입을 추론해줘서 구체화하지 않아도 됨.
+    - 가능한 var를 쓰도록 권장
+2. `String` 변수명 = 변수값 
+    - 명시적으로 설정한 타입(String)으로만 업데이트 가능
+3. String`?` 변수명 = 변수값 
+    - 명시적으로 설정한 타입(String) 외에 Null 타입으로도 업데이트 가능
+4. `dynamic` 변수명 = 변수값 
+    - 처음 할당한 변수값과 다른 타입으로도 업데이트 가능
+5. `final` 변수명 = 변수값 
+    - 한번 할당한 변수값을 바꿀 수 없음
+6. `late` final String 변수명 
+    - 처음 변수명을 선언할 때 변수값을 할당하지 않아도 되며, 나중에 명시적으로 설정한 타입(String)으로 변수값을 설정할 수 있음. 한번 할당한 변수값을 바꿀 수 없음
+7. `const` 변수명 = 변수값 
+    - 컴파일하기 전(앱을 실행하기 전)에 미리 변수값을 정해줘야 함(compile-time constant). 한번 할당한 변수값을 바꿀수 없음
+
+<br>
+<br>
+
+## #2 DATA TYPES
+
+### #2.0 Basic Data Types
+
+- dart에서 자료형은 모두 객체이다. 
+- `String`, `int`, `double`, `bool` 모두 class이다.
+    - 따라서 import할 필요 없이 해당 자료형이 가지는 모든 method를 사용할 수 있다.
+- `int`와 `double` 은 `num`이라는 자료형을 상속받은 자료형이다.
+    - `num`은 그 값이 integer 일 수도 있고 double 일 수도 있다.
+
+```dart
+void main() {
+  String name = "gy0u1";
+  bool isPlay = true;
+  int age = 10;
+  double money = 52.55;
+  num x = 12;
+  x = 20;
+}
+```
+
+<br>
+
+`int`와 `double` 은 `num`이라는 자료형을 상속받은 자료형
+
+![스크린샷 2024-06-26 오후 11 43 45](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/802d8810-1432-4174-a75d-5edec7a9b368)
+
+
+<br>
+<br>
+
+### #2.1 Lists
+
+- dart의 유용한 점은 `collection if`와 `collection for`을 지원하는 것이다.
+- List를 만들고 마지막 요소에 쉼표로 마무리해주면 자동으로 줄바꿈을 지원해줌.
+    - Shift + Alt + F
+
+#### dark에서 lists를 선언하는 두 가지 방법
+
+```dart
+void main(){
+    List<int> numbers = [1,2,3,4];// 1. 명시적 타입
+    var numbers = [1,2,3,4];// 2. var 사용
+}
+```
+
+<br>
+
+### collection if
+
+- collection if를 사용하면 `존재할 수도 안할 수도 있는 요소를 가지고 올 수 있다.`
+
+```dart
+void main() {
+  var giveMeFive = true;
+  var numbers = [
+    1,
+    2,
+    3,
+    4,
+    if (giveMeFive) 5,
+    /* 
+        상단 if문과 동일한 문법
+        if (giveMeFive){
+            numbers.add(5);
+        }
+
+    */
+  ];
+  print(numbers); // [1, 2, 3, 4, 5]
+}
+```
+
+<br>
+<br>
+
+### #2.2 String Interpolation
+
+#### 텍스트 안에 변수를 삽입하는 방법
+
+1. 문자열 내 단순 변수 삽입
+    -  따옴표 내부에 `$변수명`
+2. 문자열 내 변수를 계산하여 삽입
+    - `${계산식}` - 중괄호 사용
+3. $ 또는 ' 등 그대로 표시 (escape 문자)
+    - `\$` 또는 `\'`
+
+```dart
+void main(){
+    var name = "gy0u1";
+    var age = 10;
+    var greeting = 'hello $name, I\'m ${age + 5}';
+
+    print(greeting); // hello gy0u1, I'm 15
+}
+```
+
+<br>
+<br>
+
+### #2.3 Collection For 
+
+### Collection For 
+
+- Collection 내부에서 for문을 사용할 수 있음
+
+```dart
+void main() {
+  var oldFriends = ["g1", "g2"];
+  var newFriends = [
+  "gy0u3",
+  "gy0u4",
+  for (var friend in oldFriends) "❤️ $friend",
+  ];
+
+  print(newFriends); // [gy0u3, gy0u4, ❤️ g1, ❤️ g2]
+}
+```
+
+<br>
+<br>
+
+### #2.4 Maps
+
+```dart
 ```

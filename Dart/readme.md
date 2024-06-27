@@ -504,5 +504,264 @@ void main() {
 
 ### #2.4 Maps
 
+- dart의 Map은 Javascript나 TypeScript의 object, pythonDML dictionary와 같다.
+- Map은 key 와 value로 이루어진 자료구조이다.
+
+예시 코드
+```dart
+void main(){
+    var player = { // Map<String, Object> 타입 추론해줌
+        'name' : 'gyou1',
+        'xp' : 19.99,
+        'superpower' : false,
+        // key : value 형식
+    };
+}
+```
+![스크린샷 2024-06-28 오전 1 15 27](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/b9031c59-ae9f-4145-82e7-65d543d10981)
+
+<br>
+
+### Object는 어떤 자료형이든지 될 수 있다.
+
+- String, int 등 여러개의 타입이 추론될 때 사용한다.
+- TypeScript의 any 타입과 같다.
+
+```dart
+void main(){
+    Map<String, Object> player = {
+        // String, Object
+        'name' : 'gyou1',
+        'xp' : 19.99,
+        'superpower' : false,
+    };
+}
+```
+
+<br>
+
+### Map에서의 명시적 타입 사용 예시
+```dart
+void main(){
+    Map<String, Object> player = {
+        'name' : 'gyou1',
+        'xp' : 19.99,
+        'superpower' : false,
+    };
+}
+```
+```dart
+void main(){
+    Map<String, String> player = {
+        'name' : 'gyou1',
+        'xp' : '19.99',
+        'superpower' : 'false',
+    };
+}
+```
+```dart
+void main(){
+    Map<int, bool> player = {
+        1 : true,
+        2 : false,
+        3 : true,
+    };
+}
+```
+```dart
+void main(){
+    Map<List<int>, bool> player = {
+        [1, 2, 3, 4] : true,
+    };
+}
+```
+```dart
+void main(){
+    List<Map<String, Object>> players = [
+        {'name' : 'gyou1', 'superpower' : false },
+        {'name' : 'gyou2', 'superpower' : true },
+    ];
+}
+```
+
+<br>
+<br>
+
+### #2.5 Sets 
+
+- [] 리스트가 아닌 {} 사용하면 Set 사용
+- dart에서의 List는 Python의 List와 같고, dart에서의 Set은 Python의 Tuple과 같다.
+
+```dart
+void main(){
+    var numbers = {1, 2, 3, 4}; // Set<int> 자동 추론
+}
+```
+```dart
+void main(){
+    Set<int> numbers = {1, 2, 3, 4}; // 명시적 타입
+}
+```
+![스크린샷 2024-06-28 오전 1 36 00](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/acec9cf9-434e-488a-8d95-cf28b18cad57)
+
+### Set과 List의 차이
+
+- `Set` - 같은 요소가 포함되지 않음. 각각 하나의 요소만 있어야 할 때 사용.
+- `List` - 같은 요소 포함 가능한 리스트.
+
+```dart
+void main(){
+    var numbers = {1, 2, 3, 4}; // Set<int>
+    numbers.add(1);
+    numbers.add(1);
+    numbers.add(1);
+    print(numbers); // {1, 2, 3, 4}
+}
+```
+```dart
+void main(){
+    var numbers = [1, 2, 3, 4]; // List<int>
+    numbers.add(1);
+    numbers.add(1);
+    numbers.add(1);
+    print(numbers); // [1, 2, 3, 4, 1, 1, 1]
+}
+```
+
+<br>
+<br>
+
+## #3 FUNCTIONS
+
+### #3.0 Defining a Function
+
+- Dart는 진정한 객체 지향 언어이므로 함수도 객체이며 타입이 Function이다.
+
+```dart
+String sayHello(String name) {
+  return "hello $name nice to meet you!";
+}
+
+// 상단과 같은 한줄짜리 함수(fat arrow syntax)
+String sayHello(String name) => "hello $name nice to meet you!";
+
+void main() {
+  print(sayHello('gyou1')); // hello gyou1 nice to meet you!
+}
+```
+
+<br>
+
+한줄짜리 함수(fat arrow syntax) 추가 예시
+```dart
+num plus(num a, num b) => a + b;
+
+void main(){
+    print(plus(1, 2)); // 3
+}
+```
+
+<br>
+<br>
+
+### #3.1 Named Parameters
+
+- Dart의 function은 named parameter라는 것을 지원한다. (함수 인자 전달)
+
+
+#### positional parameter 방식 사용 예시
+- 인자 값이 여러개 일때는 가독성이 좋지 않아 권장하지는 않는 방법
+- 작성 순서를 반드시 지켜야함.
+
+```dart
+String sayHello(String name, int age, String country){
+  return "Hello $name, you are $age, and you com form $country";
+}
+
+void main(){
+  print(
+    sayHello('gyou1', 29, 'korea') // Hello gyou1, you are 29, and you com form korea
+  );
+}
+```
+
+<br>
+
+### name argument 이용
+
+name argument 이용해서 가독성을 개선(++ 파라미터 작성 순서도 노상관) 할 수 있으나,
+<br> null safety가 적용되어서 null 일 수 있음을 알려주며 에러를 보여준다.
+    
+1. default value 지정하거나
+2. required 필수값이라고 명시해줘서 해결한다.
+
+<br>
+
+null safety 에러 예시
+
+![스크린샷 2024-06-28 오전 2 29 20](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/f7e39286-b00c-4bd3-8c74-23fb16043046)
+
+
+### 1. default value 지정하여 null safety 오류 피하기
+```dart
+String sayHello({String name = 'g1', int age = 0, String country = 'everywhere'}){
+  return "Hello $name, you are $age, and you com form $country";
+}
+
+void main(){
+  print( // Hello g1, you are 0, and you com form everywhere
+    sayHello() // null이지만 default 값 받아와서 실행.
+  );
+}
+
+void main(){
+  print( // Hello gyou1, you are 29, and you com form korea
+    sayHello( // 작성 순서 상관 없음.
+      name: 'gyou1',
+      country: 'korea',
+      age : 29,
+    )
+  );
+}
+```
+
+### 2. required 필수 값 명시
+```dart
+String sayHello({required String name, required  int age, required  String country}){
+  return "Hello $name, you are $age, and you com form $country";
+}
+
+void main(){
+  print( // Hello gyou1, you are 29, and you com form korea
+    sayHello(
+      name: 'gyou1',
+      age : 29,
+      country: 'korea',
+    )
+  );
+}
+```
+
+명시하지 않을 경우, 함수 자체 실행 X 에러
+
+![스크린샷 2024-06-28 오전 2 18 58](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/86556ee0-cbde-4a10-be8d-9459482f1dc4)
+
+<br>
+<br>
+
+### #3.2 Recap
+
+1. **Positional parameters**
+: 함수에 정의되어있는 파라미터 순서대로 들어감.
+
+2. **named Parameters**
+: 함수에 정의되어 있는 파라미터 순서를 지키지 않아도 됨.
+<br>함수에 1. 디폴트값을 지정하거나, 2. Required modifier 를 써서 null 방지 가능
+
+<br>
+<br>
+
+### #3.3 Optional Positional Parameters
+
 ```dart
 ```

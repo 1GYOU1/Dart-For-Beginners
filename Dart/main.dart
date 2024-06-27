@@ -1,10 +1,13 @@
-void main() {
-  var oldFriends = ["g1", "g2"];
-  var newFriends = [
-  "gy0u3",
-  "gy0u4",
-  for (var friend in oldFriends) "❤️ $friend",
-  ];
+String sayHello({required String name, required  int age, required  String country}){
+  return "Hello $name, you are $age, and you com form $country";
+}
 
-  print(newFriends); // [gy0u3, gy0u4, ❤️ g1, ❤️ g2]
+void main(){
+  print(
+    sayHello(
+      name: 'gyou1',
+      age : 29,
+      country: 'korea',
+    )
+  );
 }

@@ -763,5 +763,49 @@ void main(){
 
 ### #3.3 Optional Positional Parameters
 
+1. positionam parameter - required (필수값)
+2. named parameter - required (필수값)
+3. `optional parameters` - option (default 값이 정해져 있는 옵션 값)
+
+<br>
+
+#### positional parameter 
+- 순서에 맞춰서 입력해야함.
+
+```dart
+void main(){
+    sayhello(1, 2, 3);
+}
+```
+
+#### named parameter
+
+```dart
+void main(){
+    sayhello({
+        name: 1
+    });
+}
+```
+
+#### optional parameter
+
+- null을 명시적으로 할당해야되냐 아니냐의 차이
+- 대괄호를 통해 optional속성을 부여하고 ?를 통해 nullable state로 만들고 null일 때 default값 설정
+
+```dart
+String sayHello(String name, int age, [String? country = "korea"]) => 'Hello ${name}, You are ${age} from the ${country}';
+
+void main() {
+    var result = sayHello("gyou1", 10);
+    print(result); // Hello gyou1, You are 10 from the korea
+}
+```
+
+<br>
+<br>
+
+### #3.4 QQ Operator
+
 ```dart
 ```

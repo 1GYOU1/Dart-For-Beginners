@@ -977,8 +977,83 @@ print(sayHi({'asdasdasdsadasdad' : 'g1'})); // null
 <br>
 <br>
 
-## #4 CLASSES
+## #4 CLASSES ★★★★★
+
 ### #4.0 Your First Dart Class
+
+- dart의 Class에서 property를 선언할 때는 타입을 사용해서 정의한다.
+- JS와 달리 new 연산자가 필요없고, 변수명이 겹치지 않는이상 this를 생략할 수 있다.
+
+```dart
+class Player{
+    String name = 'gyou1';
+    int xp = 1500;
+}
+void main(){
+    var player = Player(); // new Player()라고 기재 가능하지만, 생략가능해서 쓸 필요 없음.
+    print(player.name);// gyou1
+    player.name = 'g1g1g1';
+    print(player.name);// g1g1g1
+}
+```
+
+<br>
+
+`final` variable, property는 수정할 수 없기 때문에, player.name 값 변경 불가능 !
+```dart
+class Player{
+    final name = 'gyou1';
+    int xp = 1500;
+}
+void main(){
+    var player = Player();
+    print(player.name);// gyou1
+}
+```
+
+<br>
+
+- method내에서 같은 이름의 variable가 있어서 어쩔 수 없는 경우가 아닌 이상 this 생략.
+- this.name이런식으로도 vaiable로 인식하여 작동은 하지만 사용하지 않는 것이 권고되고 있음.
+
+```dart
+class Player{
+    final name = 'gyou1';
+    int xp = 1500;
+
+    void sayHello(){
+        print("Hi my name is $name"); // this.name 작동은 되나 사용 X. 
+    }
+}
+void main(){
+    var player = Player();
+    player.sayHello(); // Hi my name is gyou1
+}
+```
+<br>
+
+method내에서 같은 이름의 variable가 있어서 this를 사용해야하는 경우 예시
+```dart
+class Player{
+    final name = 'gyou1';
+    int xp = 1500;
+
+    void sayHello(){
+        var name = '121';
+        print("Hi my name is ${this.name}"); // Hi my name is gyou1
+        print("Hi my name is ${name}"); // Hi my name is 121
+    }
+}
+void main(){
+    var player = Player();
+    player.sayHello();
+}
+```
+
+<br>
+<br>
+
+### #4.1 Constructors
 
 ```dart
 

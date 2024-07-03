@@ -1,6 +1,10 @@
-String sayHello(String name, int age, [String? country = "korea"]) => 'Hello ${name}, You are ${age} from the ${country}';
+typedef UserInfo = Map<String, String>;
+
+String sayHi(UserInfo userInfo){
+  return "Hi ${userInfo['name']}";
+}
 
 void main() {
-    var result = sayHello("gyou1", 10);
-    print(result);
+  print(sayHi({'name' : 'gyou1'}));
+  print(sayHi({'asdasdasdsadasdad' : 'g1'}));
 }

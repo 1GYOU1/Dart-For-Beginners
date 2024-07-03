@@ -807,5 +807,179 @@ void main() {
 
 ### #3.4 QQ Operator
 
+### ??와 ?= 널 인지(null aware operator) 연산자
+
+### 1. ?? 연산자 (Null Coalescing)
+
+- question question 혹은 QQ operator라고 부른다.
+- 왼쪽 값이 null인지 체크해서 만약 null이 아니면 왼쪽 값을 리턴하고 null이면 오른쪽 값을 리턴한다.
+
 ```dart
+left ?? right
+// left가 null이면 right return
+// left가 null이 아니면 left return
+```
+
+<br>
+
+단순 toUpperCase()를 사용한 name 기본 출력 함수, null 값 사용 X
+```dart
+String capitalizeName(String name) => name.toUpperCase();
+
+void main(){
+    print (capitalizeName('gyouwon')); // GYONWON
+}
+```
+
+<br>
+
+null 값 사용 버전
+```dart
+String capitalizeName(String? name) {
+  if(name != null){
+    return name.toUpperCase();
+  }
+  return 'G1';
+}
+
+void main(){
+    print (capitalizeName('gyouwon')); // GYONWON
+    // name이 null 값이 아닐때, G1 출력
+}
+```
+
+<br>
+
+null 값 사용 버전, 화살표 함수 사용 축약형
+```dart
+String capitalizeName(String? name) =>
+  name != null ? name.toUpperCase() : 'G1';
+
+void main(){
+    print (capitalizeName('gyouwon')); // GYONWON
+    // name이 null 값이 아닐때, G1 출력
+}
+```
+
+<br>
+
+null 값 사용 버전, ?? 사용 축약형
+```dart
+String capitalizeName(String? name) =>
+  name?.toUpperCase() ?? 'G1';
+
+void main(){
+    print (capitalizeName('gyouwon')); // GYONWON
+    // name이 null 값이 아닐때, G1 출력
+}
+```
+
+<br>
+
+### 2. ?= 연산자 (Assignment if Null)
+
+- QQ equals 혹은 QQ assignment operator라고 불린다.
+- 만약 왼쪽 값이 null이라면 오른쪽 값을 할당하여 출력.
+- 이미 값이 있는 경우에는 그 값을 유지
+
+<br>
+
+```dart
+void main(){
+    String? name;
+    name ??= 'gyou1';
+    print(name); // gyou1;
+}
+```
+
+<br>
+
+변수에 이미 값이 있는 경우에는 그 값을 유지
+```dart
+void main(){
+    String? name;
+    name ??= 'gyou1';
+    name ??= 'gyouwon';
+    print(name); // gyou1;
+}
+```
+
+<br>
+
+변수에 값을 할당 받은 적이 있어도 그 다음에 null이 되면 마지막 ??= 값 할당 받아 출력.
+```dart
+void main(){
+    String? name;
+    name ??= 'gyou1';
+    name = null;
+    name ??= 'gyouwon';
+    print(name); // gyouwon;
+}
+```
+
+<br>
+<br>
+
+### #3.5 Typedef
+
+- 자료형에 사용자가 원하는 alias를 붙일 수 있게 해준다. (자료형 이름의 별명을 만들 때 사용)
+- 간단한 데이터(자료형)의 alias를 만들 때 사용. 더 구체적인건 class에서 다룰 예정.
+
+<br>
+
+typedef 사용 X 예시
+
+```dart
+List<int> reverseListOfNumbers(List<int> list){
+  var reversed = list.reversed;
+  return reversed.toList();
+}
+
+void main() {
+  print(reverseListOfNumbers([1, 2, 3]));// [3, 2, 1]
+}
+```
+
+<br>
+
+typedef 사용 예시 (상단과 동일한 함수)
+
+```dart
+typedef ListOfInts = List<int>;
+
+ListOfInts reverseListOfNumbers(ListOfInts list){
+  var reversed = list.reversed;
+  return reversed.toList();
+}
+
+void main() {
+  print(reverseListOfNumbers([1, 2, 3]));// [3, 2, 1]
+}
+```
+
+<br>
+
+typedef 사용 예시 - Map
+
+```dart
+typedef UserInfo = Map<String, String>;
+
+String sayHi(UserInfo userInfo){
+  return "Hi ${userInfo['name']}";
+}
+
+void main() {
+  print(sayHi({'name' : 'gyou1'})); // Hi gyou1
+print(sayHi({'asdasdasdsadasdad' : 'g1'})); // null
+}
+```
+
+<br>
+<br>
+
+## #4 CLASSES
+### #4.0 Your First Dart Class
+
+```dart
+
 ```

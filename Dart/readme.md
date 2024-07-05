@@ -1055,6 +1055,51 @@ void main(){
 
 ### #4.1 Constructors
 
-```dart
+- dart에서 생성자(constructor) 함수는 클래스 이름과 같아야 한다.
 
+```dart
+class Player{
+    late final name; // 변수의 값 나중에 받아오기.
+    late int xp;
+
+    Player(String name, int xp){ // 여러줄로 작성
+      this.name = name; // 값을 할당하는 형태
+      this.xp = xp;
+    }
+
+    void sayHello(){
+      print("Hi my name is $name");
+    }
+}
+void main(){
+    var player = Player("gyou1", 1500);
+    player.sayHello(); // Hi my name is gyou1
+    var player2 = Player("gyouwon", 2500);
+    player2.sayHello(); // Hi my name is gyouwon
+}
+```
+
+<br>
+
+constructor 코드를 작성하는 더 나은 방법
+- late 사용하지 않고, 한줄로 축약하여 작성
+
+```dart
+class Player{
+    final name;
+    int xp;
+
+    Player(this.name, this.xp); // 한줄로 작성
+    // 함수 생성과 동시에 호출, 값 할당
+
+    void sayHello(){
+      print("Hi my name is $name");
+    }
+}
+void main(){
+    var player = Player("gyou1", 1500);
+    player.sayHello(); // Hi my name is gyou1
+    var player2 = Player("gyouwon", 2500);
+    player2.sayHello(); // Hi my name is gyouwon
+}
 ```

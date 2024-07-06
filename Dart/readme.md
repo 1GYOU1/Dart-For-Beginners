@@ -1103,3 +1103,78 @@ void main(){
     player2.sayHello(); // Hi my name is gyouwon
 }
 ```
+
+<br>
+<br>
+
+### #4.2 Named Constructor Parameters
+
+class 안에 내용이 많아질수록 관리하기 어려워져,
+<br>positional parameters(argument)보다 Named Constructor Parameters를 사용하여 순서 상관없이 작성하는 것이 더 가시성이 좋고 효율적이다.
+
+#### positional parameters 사용
+- class안에 내용이 많을때도 argument 작성 내용 순서를 기억해야하는 단점이 있다.
+
+```dart
+class Player{
+    final name;
+    int xp;
+    String team;
+    int age;
+
+    Player(this.name, this.xp, this.team, this.age);
+
+    void sayHello(){
+      print("Hi my name is $name");
+    }
+}
+void main(){
+    var player = Player("gyou1", 1500, "red", 12); // 순서, 작성 내용을 기억해야함.
+    player.sayHello(); // Hi my name is gyou1
+    var player2 = Player("gyouwon", 2500, "blue", 13);
+    player2.sayHello(); // Hi my name is gyouwon
+}
+```
+
+<br>
+
+#### Named Constructor Parameters 사용
+
+- argument 작성 순서 상관 X
+- 변수가 null일 수도 있기 때문에 required를 이용하거나 기본 값을 줘서 처리해 줘야한다. * 아래 예시는 required 사용.
+
+```dart
+class Player {
+  final name;
+  int xp;
+  String team;
+  int age;
+
+  Player({ // 변수가 null일 수도 있어서 required 사용
+    required this.name,
+    required this.xp,
+    required this.team,
+    required this.age
+  });
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+void main() {
+  var player = Player( // 작성 순서 상관 X
+    name: "gyou1", 
+    xp: 1500, 
+    team: "red", 
+    age: 12);
+  player.sayHello(); // Hi my name is gyou1
+
+  var player2 = Player(
+    name: "gyouwon", 
+    xp: 2500, 
+    team: "blue", 
+    age: 13);
+  player2.sayHello(); // Hi my name is gyouwon
+}
+```

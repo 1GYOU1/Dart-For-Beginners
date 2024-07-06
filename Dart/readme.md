@@ -1149,9 +1149,10 @@ class Player {
   int xp;
   String team;
   int age;
+  // int xp, age 이런식으로도 사용 가능
 
   Player({ // 변수가 null일 수도 있어서 required 사용
-    required this.name,
+    required this.name, // Named Constructor Parameters
     required this.xp,
     required this.team,
     required this.age
@@ -1176,5 +1177,69 @@ void main() {
     team: "blue", 
     age: 13);
   player2.sayHello(); // Hi my name is gyouwon
+}
+```
+
+<br>
+<br>
+
+### #4.3 Named Constructors
+
+#### named constructors
+
+- Flutter에서 constructor를 만들때 많이 사용하는 패턴 중 하나이다.
+- 각각의 `①`varible(변수)를 클래스로 보내면 `②`constructor(생성자)가 변수들을 `③`class property에 할당한다.
+- 콜론(:)을 사용하면 특별한 생성자 함수를 만들 수 있다.
+콜론을 넣음으로써 dart에게 여기서 객체를 초기화하라고 명령할 수 있다.
+
+조금 다르게 동작하는 생성자(constructor) 함수를 여러개 만들고 싶다면 ?
+
+```dart
+class Player { // ③
+  final String name;
+  int xp, age;
+  String team;
+
+  Player({ // ②
+    required this.name,
+    required this.xp,
+    required this.team,
+    required this.age
+  });
+
+// 방법 1 - named 형식 - required가 모두 기본으로 적용되지 않아 명시해줘야함.
+  Player.createBluePlayer({ // 중괄호
+    required String name,
+    required int age,
+  }) : this.age = age, // Player 클래스 초기화
+       this.name = name,
+       this.team = "blue", // 기본값
+       this.xp = 0; // 기본값
+
+// 방법 2 - positional 형식 - required가 모두 기본으로 적용됨.
+  Player.createRedPlayer(
+    String name,
+    int age,
+  ) : this.age = age, // Player 클래스 초기화
+      this.name = name,
+      this.team = "red", // 기본값
+      this.xp = 0; // 기본값
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+void main() { // ①
+// 방법 1 - named constructor
+  var player = Player.createBluePlayer(
+    name: "gyou1", 
+    age: 12
+    );
+  player.sayHello(); // Hi my name is gyou1
+
+// 방법 2 - positional constructor
+  var redPlayer = Player.createRedPlayer("gyouwon", 13);
+  redPlayer.sayHello(); // Hi my name is gyouwon
 }
 ```

@@ -1,8 +1,7 @@
 class Player {
-  final name;
-  int xp;
+  final String name;
+  int xp, age;
   String team;
-  int age;
 
   Player({
     required this.name,
@@ -11,23 +10,34 @@ class Player {
     required this.age
   });
 
+  Player.createBluePlayer({
+    required String name,
+    required int age,
+  }) : this.age = age, // Player 클래스 초기화
+       this.name = name,
+       this.team = "blue", // 기본값
+       this.xp = 0; // 기본값
+
+  Player.createRedPlayer(
+    String name,
+    int age,
+  ) : this.age = age, // Player 클래스 초기화
+      this.name = name,
+      this.team = "red", // 기본값
+      this.xp = 0; // 기본값
+
   void sayHello() {
     print("Hi my name is $name");
   }
 }
 
 void main() {
-  var player = Player(
+  var player = Player.createBluePlayer(
     name: "gyou1", 
-    xp: 1500, 
-    team: "red", 
-    age: 12);
+    age: 12
+    );
   player.sayHello(); // Hi my name is gyou1
 
-  var player2 = Player(
-    name: "gyouwon", 
-    xp: 2500, 
-    team: "blue", 
-    age: 13);
-  player2.sayHello(); // Hi my name is gyouwon
+  var redPlayer = Player.createRedPlayer("gyouwon", 13);
+  redPlayer.sayHello(); // Hi my name is gyouwon
 }

@@ -1192,7 +1192,15 @@ void main() {
 - 콜론(:)을 사용하면 특별한 생성자 함수를 만들 수 있다.
 콜론을 넣음으로써 dart에게 여기서 객체를 초기화하라고 명령할 수 있다.
 
+<br>
+
 조금 다르게 동작하는 생성자(constructor) 함수를 여러개 만들고 싶다면 ?
+
+#### 방법 1 - named 형식 
+- required가 모두 기본으로 적용되지 않아 명시해줘야함.
+
+#### 방법 2 - positional 형식 
+- required가 모두 기본으로 적용됨.
 
 ```dart
 class Player { // ③
@@ -1243,3 +1251,150 @@ void main() { // ①
   redPlayer.sayHello(); // Hi my name is gyouwon
 }
 ```
+
+<br>
+<br>
+
+### #4.4 Recap
+
+- Api로부터 여러 Player가 들어있는 목록을 받는다고 가정하여 Player class의 생성과 property 초기화.
+- `fromJson` 이라는 named constructor 생성
+- String인 key를 가지고, value는 dynamic인 Map 생성.(일종의 JSON 형식)
+
+
+```dart
+class Player {
+  final String name;
+  int xp;
+  String team;
+
+/* 
+    fromJson 이라는 named constructor 생성, 
+    String인 key를 가지고, value는 dynamic이다.(일종의 JSON 형식)
+*/
+  Player.fromJson(Map<String, dynamic> playerJson) : 
+    name = playerJson['name'],
+    xp = playerJson['xp'],
+    team = playerJson['team'];
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+void main() {
+  var apiData = [
+    {
+      "name" : "A",
+      "team" : "red",
+      "xp" : 0
+    },
+    {
+      "name" : "B",
+      "team" : "blue",
+      "xp" : 0
+    },
+    {
+      "name" : "C",
+      "team" : "pink",
+      "xp" : 0
+    },
+  ];
+
+  apiData.forEach((playerJson){
+    var player = Player.fromJson(playerJson);
+    player.sayHello();
+    /*
+        Hi my name is A
+        Hi my name is B
+        Hi my name is C
+    */
+  });
+}
+```
+
+<br>
+<br>
+
+### #4.5 Cascade Notation
+
+`syntax sugar`
+- 반복되는 부분을 dart에서 간단하게 ..으로 해결하기 !
+- class 생성 직후가 아니더라도 사용 가능.
+
+예시코드 1)
+```dart
+class Player {
+  String name;
+  int xp;
+  String team;
+
+  Player({required this.name, required this.xp, required this.team});
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+void main() {
+  var abc = Player(name: "gyou1", xp: 0, team: 'red');
+  abc.name = "g1";
+  abc.xp = 100;
+  abc.team = "pink";
+}
+
+// 상단과 동일한 코드 
+void main() {
+  var abc = Player(name: "gyou1", xp: 0, team: 'red')
+  ..name = "g1"
+  ..xp = 100
+  ..team = "pink";
+}
+
+// class 생성 직후가 아니더라도 가능.
+void main() {
+  var abc = Player(name: "gyou1", xp: 0, team: 'red');
+  var def = abc
+  ..name = "g1"
+  ..xp = 100
+  ..team = "pink";
+}
+
+```
+
+<br>
+<br>
+
+### #4.6 Enums
+
+- enum은 코드를 작성할 때 값을 잘못 적지 않도록 실수를 방지해준다.
+- enum type의 변수들은 해당 enum type에 생성된 값들 중에서만 값이 할당될 수 있다.
+
+```dart
+enum Team { red, blue }
+enum XPLevel { beginner, medium, pro }
+
+class Player {
+  String name;
+  XPLevel xp;
+  Team team;
+
+  Player({required this.name, required this.xp, required this.team});
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+void main() {
+  var abc = Player(name: "gyou1", xp: XPLevel.medium, team: Team.red);
+  var def = abc
+  ..name = "g1"
+  ..xp = XPLevel.pro
+  ..team = Team.blue;
+}
+```
+
+하단과 같이 작성을 도와준다.
+
+![스크린샷 2024-07-08 오후 11 38 25](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/d8bbfba9-b8e8-4123-8d64-d4383d457e13)

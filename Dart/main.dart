@@ -1,22 +1,33 @@
-enum Team { red, blue }
-enum XPLevel { beginner, medium, pro }
-
-class Player {
-  String name;
-  XPLevel xp;
-  Team team;
-
-  Player({required this.name, required this.xp, required this.team});
-
-  void sayHello() {
+class Human{
+  final String name;
+  Human(this.name);
+  void sayHello(){
     print("Hi my name is $name");
   }
 }
 
-void main() {
-  var abc = Player(name: "gyou1", xp: XPLevel.medium, team: Team.red);
-  var def = abc
-  ..name = "g1"
-  ..xp = XPLevel.pro
-  ..team = Team.blue;
+enum Team { blue, red }
+
+class Player extends Human{
+  final Team team;
+
+  Player({
+    required this.team,
+    required String name
+  }) : super(name);
+
+  @override
+  void sayHello(){
+    super.sayHello();
+    print('and I play for ${team.name}');
+  }
+}
+
+void main(){
+   var player = Player(team: Team.red, name: 'gyou1');
+   player.sayHello();
+   /*
+    Hi my name is gyou1
+    and I play for Team.red
+   */
 }

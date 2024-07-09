@@ -1398,3 +1398,110 @@ void main() {
 하단과 같이 작성을 도와준다.
 
 ![스크린샷 2024-07-08 오후 11 38 25](https://github.com/1GYOU1/Dart-for-Beginners/assets/90018379/d8bbfba9-b8e8-4123-8d64-d4383d457e13)
+
+
+<br>
+<br>
+
+### #4.7 Abstract Classes
+
+- 추상화 클래스는 다른 클래스들이 직접 구현 해야하는 메소드들을 모아놓은 일종의 `청사진(blueprint)`이라 보면 된다.
+- 추상 클래스에서는 기능을 구현하지 않는다.
+- 상속받는 모든 클래스가 가지고 있어야 하는 메소드를 정의한다.
+- 추상 클래스는 많이 사용하진 않지만 유용하다(?)고 한다 ~
+
+```dart
+// Human 추상화 클래스는 walk라는 메소드를 가지고 반환하는 형태.
+abstract class Human {
+  void walk();
+}
+
+enum Team { red, blue }
+enum XPLevel { beginner, medium, pro }
+
+class Player extends Human{
+  String name;
+  XPLevel xp;
+  Team team;
+
+  Player({required this.name, required this.xp, required this.team});
+
+  void walk(){ // 없으면 에러남
+    print('Im walking');
+  }
+
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+class Coach extends Human{
+  void walk(){
+    print('the coach is waling');
+  }
+}
+
+void main() {
+  var abc = Player(name: "gyou1", xp: XPLevel.medium, team: Team.red);
+  var def = abc
+  ..name = "g1"
+  ..xp = XPLevel.pro
+  ..team = Team.blue;
+}
+```
+
+<br>
+<br>
+
+### #4.8 Inheritance
+
+- 상속을 하고 : super를 이용해 확장한 부모 클래스의 생성자를 호출할 수 있다.
+- @override를 이용해 부모 클래스의 객체를 받아올 수 있다.
+
+```dart
+class Human{
+  final String name;
+  Human(this.name);// 생성자
+  void sayHello(){
+    print("Hi my name is $name");
+  }
+}
+
+enum Team { blue, red }
+
+class Player extends Human{ // 확장하여 Human class를 모두 갖게 됨.
+  final Team team;
+
+  Player({
+    required this.team,
+    required String name,
+  }) : super(name); // 확장한 부모 클래스 생성자를 의미
+
+  @override // Human에서 온 sayHello를 새로 만든 메소드로 대체
+  void sayHello(){
+    super.sayHello(); // Human에서 상속
+    print('and I play for ${team.name}'); // 새로운 메소드 추가
+  }
+}
+
+void main(){
+   var player = Player(team: Team.red, name: 'gyou1');
+   player.sayHello();
+   /*
+    Hi my name is gyou1
+    and I play for red
+   */
+}
+```
+
+<br>
+<br>
+
+### #4.9 Mixins
+
+- 생성자가 없는 클래스
+- 클래스에 프로퍼티들을 추가할 때 사용
+
+```dart
+
+```
